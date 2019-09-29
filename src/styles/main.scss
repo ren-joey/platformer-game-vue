@@ -139,3 +139,28 @@
         }
     }
 }
+
+.login {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('../assets/images/bg_start.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #000;
+    z-index: 3;
+
+    .login-board {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 453px;
+        height: 784px;
+        background-image: url('../assets/images/login.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+}

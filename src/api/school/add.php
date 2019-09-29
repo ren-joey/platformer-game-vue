@@ -29,6 +29,8 @@ if (isset($_POST['school_id'], $_POST['school_name'], $_POST['school_name'], $_P
     $question = (isset($_POST['question']) ? $_POST['question'] : "{}");
     $url = (isset($_POST['url']) ? $_POST['url'] : "");
     $sql = "INSERT INTO result VALUES ($school_id, $school_name, $class, $num, $name, $question, $url )";
+
+    print "success";
     // $sql = "SELECT school_id=$school, class=$class, seat_number=$num FROM result";
     // $result =  $conn->query($sql);
     // $rows = array();
@@ -41,6 +43,7 @@ if (isset($_POST['school_id'], $_POST['school_name'], $_POST['school_name'], $_P
     //     array_push($rows, $row);
     // }
 } else {
+    print "error";
 }
 
 // include $_POST['data'];

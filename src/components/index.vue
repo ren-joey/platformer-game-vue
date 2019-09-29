@@ -80,7 +80,7 @@
         </div>
         <div class="login">
             <div class="login-board">
-                <select name="" id="">
+                <select name="school_id" id="">
                     <option value="" />
                 </select>
             </div>
