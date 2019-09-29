@@ -9,7 +9,8 @@ const gameInit = () => {
         width: 1024 * 0.6,
         height: window.innerHeight - 320,
         view: document.getElementById('game'),
-        backgroundColor: 0xffffff
+        backgroundColor: 0xffffff,
+        preserveDrawingBuffer: true
     })
 
     keyboardListener()
@@ -59,7 +60,9 @@ const gameInit = () => {
         // canvasContainer = canvasInit()
         // pixi.stage.addChild(canvasContainer)
     }
-    const viewUpdateInterval = setInterval(viewUpdate, 1000 / config.preference.fps)
+
+    // TODO:
+    const viewUpdateInterval = setInterval(viewUpdate, 1000 / config.preference.fps) // eslint-disable-line
 
     const eventListener = () => {
         window.addEventListener('resize', () => {

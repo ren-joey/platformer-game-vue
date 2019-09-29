@@ -7,28 +7,29 @@
 // fwrite($fp2, 'good');
 // fclose($fp2);
 
-if (isset($_POST['school_id'], $_POST['school_name'], $_POST['school_name'], $_POST['class'], $_POST['seat_number'], $_POST['name'])) {
-    header("Content-Type: application/json; charset=utf-8");
-
+if (isset($_POST['school_id'], $_POST['school_name'], $_POST['class'], $_POST['seat_number'], $_POST['name'])) {
     $host = "db01.coowo.com";
     $username = "nosmoking";
     $password = "Ynq36v?3";
     $dbname = "nosmoking";
 
     $conn = new mysqli($host, $username, $password, $dbname);
+    $conn->set_charset("utf8");
     // set the PDO error mode to exception
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
     $school_id = $_POST['school_id'];
+    $school_name = $_POST['school_name'];
     $class = $_POST['class'];
     $num = $_POST['seat_number'];
     $name = $_POST['name'];
     $score = (isset($_POST['score']) ? $_POST['score'] : 0);
     $question = (isset($_POST['question']) ? $_POST['question'] : "{}");
     $url = (isset($_POST['url']) ? $_POST['url'] : "");
-    $sql = "INSERT INTO result VALUES ($school_id, $school_name, $class, $num, $name, $question, $url )";
+    $sql = "INSERT INTO result VALUES ($school_id, '$school_name', '$class', $num, '$name', $score, '$question', '$url' )";
+    $conn->query($sql);
 
     print "success";
     // $sql = "SELECT school_id=$school, class=$class, seat_number=$num FROM result";
@@ -44,6 +45,7 @@ if (isset($_POST['school_id'], $_POST['school_name'], $_POST['school_name'], $_P
     // }
 } else {
     print "error";
+    print_r($_POST);
 }
 
 // include $_POST['data'];

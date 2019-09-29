@@ -74,6 +74,16 @@ import { pixiImgLoader, gameInit } from './animation'
 import { config } from './animation/config'
 
 export default {
+    props: {
+        setActivePage: {
+            type: Function,
+            default: () => {}
+        },
+        updateScore: {
+            type: Function,
+            default: () => {}
+        }
+    },
     data() {
         return {
             loaded: false,
@@ -92,7 +102,10 @@ export default {
                 gameInit(() => {
                     vm.passed = true
                     TweenLite.to(vm.$refs.canvas, 3, { opacity: 0 })
-                    // vm.$router.push({ path: 'draw-game' })
+
+                    setTimeout(() => {
+                        vm.updateScore()
+                    }, 2000)
                 }, () => {
                     vm.failed = true
                     TweenLite.from(vm.$refs.gameover, 5, { top: 0,
@@ -101,7 +114,9 @@ export default {
                         onComplete() {
                             TweenLite.to(vm.$refs.blackMask, 5, { opacity: 1,
                                 onComplete() {
-                                    location.href = '/'
+                                    // location.href = '/'
+
+                                    vm.updateScore()
                                 } })
                         } })
                 })

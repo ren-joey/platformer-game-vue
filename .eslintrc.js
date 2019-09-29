@@ -21,7 +21,7 @@ module.exports = {
         'global-require': 0,
         'max-len': 0,
         'no-alert': 0,
-        // 'no-console': 0,
+        'no-console': 0,
         'object-curly-newline': 0,
         'no-restricted-globals': 0,
         camelcase: 0,

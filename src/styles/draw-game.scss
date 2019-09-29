@@ -9,27 +9,144 @@
     z-index: -1;
 }
 
+.title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+
+    .title-container {
+        width: 368px;
+        height: 99px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 99px;
+        color: #fff;
+        background-image: url('../assets/images/board.png');
+    }
+}
+
+.pre-canvas-board {
+    position: relative;
+    margin: 0 auto;
+    padding-bottom: calc(500px / 754 * 580);
+    width: 500px;
+    background-image: url('../assets/images/green-board.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    .desc {
+        position: absolute;
+        top: 14%;
+        left: 14%;
+        width: 72%;
+        font-size: 1.8em;
+        font-weight: bolder;
+    }
+
+    .confirm {
+        position: absolute;
+        top: 80%;
+        left: 65%;
+        width: 28%;
+        height: 20%;
+        cursor: pointer;
+    }
+}
+
+.result-board {
+    position: relative;
+    margin: 0 auto;
+    padding-bottom: calc(500px / 751 * 764);
+    width: 500px;
+    background-image: url('../assets/images/result.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    > * {
+        position: absolute;
+        font-size: 2em;
+        font-weight: bolder;
+    }
+
+    .name {
+        top: 9%;
+        left: 35%;
+        width: 45%;
+        text-align: center;
+    }
+
+    .score {
+        top: 20%;
+        left: 35%;
+        width: 45%;
+        text-align: center;
+    }
+
+    .desc {
+        top: 36%;
+        left: 12%;
+        width: 76%;
+        font-size: 1.6em;
+    }
+
+    .confirm {
+        top: 60%;
+        left: 60%;
+        width: 30%;
+        height: 15%;
+        cursor: pointer;
+    }
+
+    .rank {
+        top: 85%;
+        left: 36%;
+        width: 32%;
+        height: 15%;
+        cursor: pointer;
+    }
+}
+
+.question-wrap,
+.rank-wrap {
+    margin: 0 auto;
+    width: 800px;
+
+    .question-container,
+    .rank-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        font-size: 1.2em;
+        font-weight: bolder;
+        line-height: 2;
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+
+        thead > tr {
+            color: #fff;
+            background-color: #5f5f5f;
+        }
+
+        td,
+        th {
+            padding: 5px;
+            border: 1px solid #000;
+        }
+
+        tr.wrong {
+            color: #dd0000;
+        }
+    }
+}
+
 .canvas-wrap {
     margin: 0 auto;
     width: 1024px;
-
-    .title-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 30px 0;
-
-        .title-container {
-            width: 368px;
-            height: 99px;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 99px;
-            color: #fff;
-            background-image: url('../assets/images/board.png');
-        }
-    }
 
     .canvas-container {
         display: flex;
@@ -80,23 +197,23 @@
             }
         }
     }
+}
 
-    .btn-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+.btn-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        .btn {
-            width: 143px;
-            height: 76px;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 65px;
-            color: #332c2b;
-            background-image: url('../assets/images/btn.png');
-            transform: scale(0.7);
-            cursor: pointer;
-        }
+    .btn {
+        width: 143px;
+        height: 76px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 65px;
+        color: #332c2b;
+        background-image: url('../assets/images/btn.png');
+        transform: scale(0.7);
+        cursor: pointer;
     }
 }

@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import {
-    TweenMax, TimelineMax, Power3
+    TimelineMax, Power3
 } from 'gsap'
 import { Howl } from 'howler'
 import { pixiImgLoader } from './scripts/loader'
@@ -184,6 +184,7 @@ const gameInit = (next, gameover = () => {}) => {
 
         // 超出右邊界
         if (container.x > config.environment.width - 100) {
+            config.result.coins += (config.character.lives * 10)
             runSound.stop()
             music.stop()
             winSound.play()
