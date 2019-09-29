@@ -1,0 +1,141 @@
+.home {
+    background: url('../assets/images/cloud.png') center bottom no-repeat;
+    background-size: 100% auto;
+    background-color: #9290ff;
+
+    .wrapper {
+        margin: 0 auto;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        width: 1280px;
+
+        @media (max-width: 1279.98px) {
+            width: 90%;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            margin: 50px 0;
+            width: 100%;
+
+            .title-badge {
+                margin: 2% 5%;
+                padding-bottom: calc(15% / 67 * 90);
+                width: 15%;
+                background: url('../assets/images/header-badge.png') no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .title-img {
+                margin: 1%;
+                padding-bottom: calc(35% / 628 * 396);
+                width: 35%;
+                background: url('../assets/images/header-title.png') no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .slogan {
+                margin: 1%;
+                padding-bottom: calc(40% / 778 * 321);
+                width: 40%;
+                height: 0;
+                background: url('../assets/images/header-slogan.png') center no-repeat;
+                background-size: 100% 100%;
+
+            }
+        }
+
+        .main-container {
+            margin: 0 auto 100px;
+            padding: 1px;
+            width: 1024px;
+            box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.3);
+
+            @media (max-width: 1279.98px) {
+                width: 100%;
+            }
+
+            .nav-bar {
+                display: flex;
+                background-color: #fff000;
+
+                .nav {
+                    margin: 1%;
+                    padding-bottom: calc(18% / 297 * 83);
+                    width: 18%;
+                    background-size: 100% 100% !important;
+                    cursor: pointer;
+
+                    &.nav-1 {
+                        background: url('../assets/images/btn-1.png') no-repeat;
+
+                        &:hover,
+                        &.active {
+                            background: url('../assets/images/btn-1-hover.png')
+                        }
+                    }
+
+                    &.nav-2 {
+                        background: url('../assets/images/btn-2.png') no-repeat;
+
+                        &:hover,
+                        &.active {
+                            background: url('../assets/images/btn-2-hover.png')
+                        }
+                    }
+
+                    &.nav-3 {
+                        background: url('../assets/images/btn-3.png') no-repeat;
+
+                        &:hover,
+                        &.active {
+                            background: url('../assets/images/btn-3-hover.png')
+                        }
+                    }
+
+                    &.nav-4 {
+                        background: url('../assets/images/btn-4.png') no-repeat;
+
+                        &:hover,
+                        &.active {
+                            background: url('../assets/images/btn-4-hover.png')
+                        }
+                    }
+
+                    &.nav-5 {
+                        background: url('../assets/images/btn-5.png') no-repeat;
+
+                        &:hover,
+                        &.active {
+                            background: url('../assets/images/btn-5-hover.png')
+                        }
+                    }
+                }
+            }
+
+            .main-content {
+                padding: 20px 30px;
+                font-size: 1.2em;
+                background-color: #fff;
+            }
+
+            .download {
+                &-item {
+                    cursor: pointer;
+                }
+
+                &-icon {
+                    width: 114px;
+                    height: 114px;
+                    background-image: url('../assets/images/pdf-icon.png');
+                    background-size: 100% 100%;
+                }
+
+                &-text {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

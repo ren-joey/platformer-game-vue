@@ -1,0 +1,244 @@
+.platformer-game-wrap {
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.qa {
+    &-container {
+        position: relative;
+        display: none;
+        z-index: 1;
+
+        .btn-wrap {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+
+            .btn-true,
+            .btn-false {
+                display: inline-block;
+                margin: 0 30px;
+                background-repeat: no-repeat;
+                background-size: cover;
+                cursor: pointer;
+            }
+
+            .btn-true {
+                padding-top: calc(100px / 172 * 105);
+                width: 100px;
+                background-image: url('../assets/images/btn-true.png');
+            }
+
+            .btn-false {
+                padding-top: calc(100px / 169 * 105);
+                width: 100px;
+                background-image: url('../assets/images/btn-false.png');
+            }
+        }
+    }
+
+    &-content {
+        position: relative;
+        padding: 100px 40px 0 70px;
+        width: 80vw;
+        height: 380px;
+        font-size: 30px;
+        box-sizing: border-box;
+        font-family: '微軟正黑體';
+        font-weight: bold;
+
+        .qa-tip {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            padding-top: calc(100% / 789 * 673);
+            width: 100%;
+            background-image: url('../assets/images/qa-bg.png');
+            background-size: cover;
+            z-index: -1;
+            content: '';
+        }
+
+        @media (min-width: 1024.98px) {
+            width: 500px;
+        }
+    }
+
+    &-wrap {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+        overflow-x: hidden;
+        overflow-y: auto;
+        z-index: 2;
+
+        &.tip,
+        &.question,
+        &.false,
+        &.true {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &.tip {
+            [qa-type='tip'] {
+                display: block;
+            }
+        }
+
+        &.question {
+            [qa-type='question'] {
+                display: block;
+            }
+        }
+
+        &.false {
+            [qa-type='false'] {
+                display: block;
+
+                .qa-content {
+                    text-align: center;
+                }
+            }
+        }
+
+        &.true {
+            [qa-type='true'] {
+                display: block;
+
+                .qa-content {
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    &-win-msg,
+    &-win-img,
+    &-wrong-msg,
+    &-wrong-img {
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    &-win-msg {
+        padding-top: calc(200px / 453 * 121);
+        width: 200px;
+        background-image: url('../assets/images/qa-win-msg.png');
+    }
+
+    &-win-img {
+        padding-top: calc(200px / 450 * 260);
+        width: 200px;
+        background-image: url('../assets/images/qa-win-img.png');
+    }
+
+    &-wrong-msg {
+        padding-top: calc(200px / 452 * 121);
+        width: 200px;
+        background-image: url('../assets/images/qa-wrong-msg.png');
+    }
+
+    &-wrong-img {
+        padding-top: calc(110px / 211 * 236);
+        width: 110px;
+        background-image: url('../assets/images/qa-wrong-img.png');
+    }
+
+    &-mask {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: -1;
+    }
+}
+
+.start-btn {
+    width: 274px;
+    height: 75px;
+    background-image: url('../assets/images/start-btn.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.bg-pass {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../assets/images/bg_pass.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #000;
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 1);
+    transition: 3s;
+
+    &.transparent {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding-bottom: calc(40% / 601 * 313);
+    width: 40%;
+    background-image: url(../assets/images/game_over.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transform: translate(-50%, -50%);
+}
+
+.black-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
+    z-index: 2;
+}

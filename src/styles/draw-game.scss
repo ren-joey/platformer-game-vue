@@ -1,0 +1,102 @@
+.bg-cloud {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('../assets/images/bg_cloud.jpg');
+    background-size: 100% 100%;
+    z-index: -1;
+}
+
+.canvas-wrap {
+    margin: 0 auto;
+    width: 1024px;
+
+    .title-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 30px 0;
+
+        .title-container {
+            width: 368px;
+            height: 99px;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 99px;
+            color: #fff;
+            background-image: url('../assets/images/board.png');
+        }
+    }
+
+    .canvas-container {
+        display: flex;
+        overflow: hidden;
+        padding: 30px;
+        height: calc(100vh - 260px);
+        background-color: #fff;
+        border: 2px solid #707070;
+        border-radius: 15px;
+        box-sizing: border-box;
+
+        .canvas-app {
+            width: 60%;
+        }
+
+        .color-picker {
+            width: 40%;
+            text-align: center;
+
+            .color,
+            .btn-prev,
+            .btn-next {
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            .color {
+                &.active {
+                    path {
+                        stroke: #333 !important;
+                        // stroke-width: 1 !important;
+                    }
+                }
+            }
+
+            .btn-prev {
+                margin: 12px;
+                width: 53px;
+                height: 52px;
+                background-image: url('../assets/images/btn-prev.png');
+            }
+
+            .btn-next {
+                margin: 12px;
+                width: 52px;
+                height: 52px;
+                background-image: url('../assets/images/btn-next.png');
+            }
+        }
+    }
+
+    .btn-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .btn {
+            width: 143px;
+            height: 76px;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 65px;
+            color: #332c2b;
+            background-image: url('../assets/images/btn.png');
+            transform: scale(0.7);
+            cursor: pointer;
+        }
+    }
+}
