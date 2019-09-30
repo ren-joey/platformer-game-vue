@@ -184,7 +184,7 @@ const gameInit = (next, gameover = () => {}) => {
 
         // 超出右邊界
         if (container.x > config.environment.width - 100) {
-            config.result.coins += (config.character.lives * 10)
+            // config.result.coins += (config.character.lives * 10)
             runSound.stop()
             music.stop()
             winSound.play()

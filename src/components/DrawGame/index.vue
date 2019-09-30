@@ -48,7 +48,6 @@
                 <div class="name" v-html="name" />
                 <div class="score" v-html="config.result.coins" />
                 <div class="desc">
-                    剩餘的每個生命可額外加10分！<br />
                     系統將自動記錄最高分數。請繼續完成彩繪塗鴉！
                 </div>
                 <div class="confirm" @click="activeContent = 'pre-canvas'" />

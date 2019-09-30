@@ -18,6 +18,14 @@ if (isset($_POST['school_id'], $_POST['class'], $_POST['seat_number'], $_POST['s
     $num = $_POST['seat_number'];
     $score = $_POST['score'];
     $question = $_POST['question'];
+
+    $sql = "SELECT * FROM result WHERE school_id=$school_id AND class='$class' AND seat_number=$num";
+    $result = $conn->query($sql);
+    $prev_score = $result->fetch_object()->score;
+    if ($prev_score > $score) {
+        exit($prev_score);
+    }
+
     $sql = "UPDATE result SET score=$score, question='$question' WHERE school_id=$school_id AND class='$class' AND seat_number=$num";
     $conn->query($sql);
 

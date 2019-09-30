@@ -10,14 +10,23 @@
                     </header>
                     <div class="main-container">
                         <div class="nav-bar">
-                            <nav class="nav nav-1" @click="activeContent = 'announcement'" />
-                            <nav class="nav nav-2" />
+                            <nav class="nav nav-1"
+                                 :class="{active: activeContent === 'announcement'}"
+                                 @click="activeContent = 'announcement'"
+                            />
+                            <nav class="nav nav-2" :class="{active: activeContent === 'info'}" />
                             <nav tag="div"
                                  class="nav nav-3"
                                  @click="loginEnable = true"
                             />
-                            <nav class="nav nav-4" @click="activeContent = 'rank'" />
-                            <nav class="nav nav-5" @click="activeContent = 'images'" />
+                            <nav class="nav nav-4"
+                                 :class="{active: activeContent === 'rank'}"
+                                 @click="activeContent = 'rank'"
+                            />
+                            <nav class="nav nav-5"
+                                 :class="{active: activeContent === 'images'}"
+                                 @click="activeContent = 'images'"
+                            />
                         </div>
                         <div v-if="activeContent === 'announcement'" class="main-content">
                             <table class="table table-borderless">
@@ -58,18 +67,33 @@
                                         </th>
                                         <td>
                                             <div class="d-flex">
-                                                <div class="download-item">
+                                                <a href="/file/有獎徵答題目.pdf"
+                                                   class="download-item"
+                                                   download
+                                                >
                                                     <div class="download-icon" />
                                                     <div class="download-text">
-                                                        <strong>遊戲題庫</strong>
+                                                        <strong>有獎徵答題目</strong>
                                                     </div>
-                                                </div>
-                                                <div class="download-item">
+                                                </a>
+                                                <a href="/file/教學操作手冊0930.pdf"
+                                                   class="download-item"
+                                                   download
+                                                >
                                                     <div class="download-icon" />
                                                     <div class="download-text">
-                                                        <strong>教學說明</strong>
+                                                        <strong>教學操作手冊</strong>
                                                     </div>
-                                                </div>
+                                                </a>
+                                                <a href="/file/學校序號一覽表.pdf"
+                                                   class="download-item"
+                                                   download
+                                                >
+                                                    <div class="download-icon" />
+                                                    <div class="download-text">
+                                                        <strong>學校序號一覽表</strong>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -94,7 +118,7 @@
                                         <td v-html="user.school_name" />
                                         <td v-html="user.class" />
                                         <td v-html="user.seat_number" />
-                                        <td v-html="user.name" />
+                                        <td v-html="nameMask(user.name)" />
                                         <td v-html="user.score" />
                                     </tr>
                                 </tbody>
@@ -106,7 +130,7 @@
                                      v-for="user in images"
                                      :key="user.url"
                                 >
-                                    <div class="p-3">
+                                    <div class="p-3" style="font-size: 0.85em">
                                         <img :src="`/api/school/${user.url}`"
                                              width="100%"
                                              height="auto"
@@ -115,7 +139,7 @@
                                         <br />
                                         {{ `${user.school_name} ${user.class}` }}
                                         <br />
-                                        {{ user.name }}
+                                        {{ nameMask(user.name) }}
                                     </div>
                                 </div>
                             </div>
@@ -131,10 +155,13 @@
                             name="school_id"
                             v-model="school_id"
                     >
+                        <option value="-1">
+                            請選擇
+                        </option>
                         <option v-for="school in schools"
                                 :value="school.id"
                                 :key="school.id + school.address"
-                                v-html="school.name"
+                                v-html="school.id.padStart(3, 0) + ' ' + school.name"
                         />
                     </select>
                     <input id="className"
@@ -190,7 +217,7 @@ export default {
         return {
             activePage: 'index',
             activeContent: 'announcement',
-            school_id: null,
+            school_id: -1,
             class_number: null,
             seat_number: null,
             name: null,
@@ -207,6 +234,7 @@ export default {
     computed: {
         school_name() {
             const vm = this
+            if (vm.school_id === -1) return null
             return this.schools.find(school => school.id === vm.school_id).name
         },
         question() {
@@ -228,11 +256,16 @@ export default {
         })
     },
     methods: {
+        nameMask(name) {
+            const nameMask = name.split('')
+            nameMask[1] = '◯'
+            return nameMask.join('')
+        },
         setActivePage(target) {
             this.activePage = target
         },
         clear() {
-            this.school_id = 1
+            this.school_id = -1
             this.class_number = null
             this.seat_number = null
             this.name = null
@@ -240,20 +273,25 @@ export default {
         send() {
             const { school_id, school_name, class_number, seat_number, name, score, question, url, verification_code, verification } = this
 
-            if (verification_code !== verification) {
-                alert('驗證碼錯誤，請重新確認。')
+            if (school_id === -1) {
+                alert('請選擇學校')
                 return
             }
-            if (class_number === null) {
+
+            if (class_number === null || class_number === '') {
                 alert('請輸入班級')
                 return
             }
-            if (seat_number === null) {
+            if (seat_number === null || seat_number === '') {
                 alert('請輸入座號')
                 return
             }
-            if (name === null) {
+            if (this.name === null || this.name === '') {
                 alert('請輸入姓名')
+                return
+            }
+            if (verification_code !== verification) {
+                alert('驗證碼錯誤，請重新確認。')
                 return
             }
 
@@ -272,15 +310,17 @@ export default {
                     url
                 }
             }).always((result) => {
-                console.log(result)
+                // console.log(result)
                 if (result.responseText === 'success') {
                     // this.$router.push({ path: 'platformer-game' })
+                    this.activePage = 'platformerGame'
+                } else if (result.responseText === 'exist') {
+                    alert('您已經註冊過，繼續突破自己的紀錄吧！系統會自動上傳你最高的分數。')
                     this.activePage = 'platformerGame'
                 }
             })
         },
         updateScore() {
-            console.log('update')
             const { school_id, class_number, seat_number, score, question } = this
             $.ajax({
                 method: 'POST',
@@ -294,9 +334,12 @@ export default {
                     question
                 }
             }).always((result) => {
-                console.log(result)
                 if (result.responseText === 'success') {
+                    alert('個人新紀錄！')
                     // this.$router.push({ path: 'platformer-game' })
+                    this.activePage = 'drawGame'
+                } else if (['success', 'error'].indexOf(result.responseText) === -1) {
+                    alert(`您先前的最高分為${result}，繼續努力打破紀錄吧！`)
                     this.activePage = 'drawGame'
                 }
             })
@@ -314,7 +357,7 @@ export default {
                     image
                 }
             }).always((result) => {
-                console.log(result)
+                // console.log(result)
                 if (result.responseText === 'success') {
                     // this.$router.push({ path: 'platformer-game' })
                     // this.activePage = 'drawGame'

@@ -24,6 +24,12 @@ if (isset($_POST['school_id'], $_POST['school_name'], $_POST['class'], $_POST['s
     $school_name = $_POST['school_name'];
     $class = $_POST['class'];
     $num = $_POST['seat_number'];
+    $sql = "SELECT * FROM result WHERE school_id=$school_id AND class='$class' AND seat_number=$num";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        exit("exist");
+    }
+
     $name = $_POST['name'];
     $score = (isset($_POST['score']) ? $_POST['score'] : 0);
     $question = (isset($_POST['question']) ? $_POST['question'] : "{}");
