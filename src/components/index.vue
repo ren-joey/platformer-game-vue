@@ -14,7 +14,10 @@
                                  :class="{active: activeContent === 'announcement'}"
                                  @click="activeContent = 'announcement'"
                             />
-                            <nav class="nav nav-2" :class="{active: activeContent === 'info'}" />
+                            <nav class="nav nav-2"
+                                 :class="{active: activeContent === 'info'}"
+                                 @click="activeContent = 'info'"
+                            />
                             <nav tag="div"
                                  class="nav nav-3"
                                  @click="loginEnable = true"
@@ -35,31 +38,31 @@
                                         <th style="width: 180px;">
                                             <strong>一、主辦單位：</strong>
                                         </th>
-                                        <td>台中市政府衛生局</td>
+                                        <td>臺中市政府衛生局</td>
                                     </tr>
                                     <tr>
                                         <th>
                                             <strong>二、協辦單位：</strong>
                                         </th>
-                                        <td>台中市政府衛生局</td>
+                                        <td>臺中市政府教育局</td>
                                     </tr>
                                     <tr>
                                         <th>
                                             <strong>三、參加對象：</strong>
                                         </th>
-                                        <td>台中市國小六年級學童</td>
+                                        <td>臺中市國小六年級學童</td>
                                     </tr>
                                     <tr>
                                         <th>
                                             <strong>四、活動目的：</strong>
                                         </th>
-                                        <td>為落實菸害防制的預防教育向下扎根，台中市政府衛生局建立網路數位學習與競賽環境，透過趣味競賽電玩氛圍、置入優化知識教材，使學童更有興趣學習使用，因此了解二手菸與二手菸的害處與不吸菸觀念。達到遠離菸品危害、維護學童健康之活動目的。</td>
+                                        <td>為落實菸害防制的預防教育向下扎根，臺中市政府衛生局建立網路學習與競賽環境，透過趣味競賽遊戲氛圍，讓學童了解菸品、二手菸、三手菸、電子菸的危害，與學習拒菸的能力，進而達成從小不吸菸的活動目的。</td>
                                     </tr>
                                     <tr>
                                         <th>
                                             <strong>五、活動期間：</strong>
                                         </th>
-                                        <td>2019/09/01 ~ 2019/10/31</td>
+                                        <td>2019/09/30 ~ 2019/11/27</td>
                                     </tr>
                                     <tr>
                                         <th>
@@ -100,6 +103,16 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div v-else-if="activeContent === 'info'"
+                             class="main-content"
+                             style="text-align: center;"
+                        >
+                            <img src="../assets/images/info.jpg"
+                                 alt=""
+                                 width="640"
+                                 height="655"
+                            />
+                        </div>
                         <div v-else-if="activeContent === 'rank'" class="main-content">
                             <table class="table table-borderless">
                                 <thead>
@@ -114,7 +127,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(user, idx) in rank" :key="idx">
-                                        <td v-html="idx + 1" />
+                                        <td v-html="+rankStart + idx + 1" />
                                         <td v-html="user.school_name" />
                                         <td v-html="user.class" />
                                         <td v-html="user.seat_number" />
@@ -123,11 +136,37 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="text-center" v-if="!loaded">
+                                <img src="https://miro.medium.com/max/1080/0*DqHGYPBA-ANwsma2.gif"
+                                     alt=""
+                                     srcset=""
+                                />
+                            </div>
+                            <div class="text-center" v-if="users.length > 0">
+                                <nav aria-label="Page navigation example" style="display: inline-block;">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" @click="rankStart -= 100">上一頁</a>
+                                        </li>
+                                        <li class="page-item"
+                                            v-for="(page, idx) in pages"
+                                            v-show="page > rankStart - 500 && page < rankStart + 500"
+                                            :class="{active: page === rankStart}"
+                                            :key="idx"
+                                        >
+                                            <a class="page-link" @click="rankStart = page">{{ idx + 1 }}</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" @click="rankStart += 100">下一頁</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                         <div v-else-if="activeContent === 'images'" class="main-content">
                             <div class="row">
                                 <div class="col-3"
-                                     v-for="user in images"
+                                     v-for="(user) in images"
                                      :key="user.url"
                                 >
                                     <div class="p-3" style="font-size: 0.85em">
@@ -142,6 +181,32 @@
                                         {{ nameMask(user.name) }}
                                     </div>
                                 </div>
+                            </div>
+                            <div class="text-center" v-if="!loaded">
+                                <img src="https://miro.medium.com/max/1080/0*DqHGYPBA-ANwsma2.gif"
+                                     alt=""
+                                     srcset=""
+                                />
+                            </div>
+                            <div class="text-center" v-if="images.length > 0">
+                                <nav aria-label="Page navigation example" style="display: inline-block;">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" @click="imageStart -= 24">上一頁</a>
+                                        </li>
+                                        <li class="page-item"
+                                            v-for="(page, idx) in imagePages"
+                                            v-show="page > imageStart - 120 && page < imageStart + 120"
+                                            :class="{active: page === imageStart}"
+                                            :key="idx"
+                                        >
+                                            <a class="page-link" @click="imageStart = page">{{ idx + 1 }}</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" @click="imageStart += 24">下一頁</a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -194,7 +259,7 @@
         <DrawGame v-else-if="activePage === 'drawGame'"
                   :name="name"
                   :config="config"
-                  :rank="rank"
+                  :users="users"
                   :updateUrl="updateUrl"
         />
     </div>
@@ -225,9 +290,11 @@ export default {
             verification: null,
             schools: [],
             loginEnable: false,
+            users: [],
             url: '',
-            images: [],
-            rank: [],
+            imageStart: 0,
+            rankStart: 0,
+            loaded: false,
             config
         }
     },
@@ -242,15 +309,41 @@ export default {
         },
         score() {
             return this.config.result.coins
+        },
+        images() {
+            return this.users.filter(user => (user.url)).slice(this.imageStart, this.imageStart + 24)
+        },
+        rank() {
+            return this.users.concat().sort((a, b) => b.score - a.score).slice(this.rankStart, this.rankStart + 100)
+        },
+        pages() {
+            if (this.users.length === 0) return []
+            const pages = []
+            for (let i = 0; i <= this.users.length; i += 100) {
+                pages.push(i)
+            }
+            return pages
+        },
+        imagePages() {
+            if (this.users.length === 0) return []
+            const images = this.users.filter(user => (user.url))
+            if (images.length === 0) return []
+            const pages = []
+            for (let i = 0; i <= images.length; i += 24) {
+                pages.push(i)
+            }
+            return pages
         }
     },
     created() {
         const vm = this
         axios.get('api/school/').then((response) => {
-            const { schools, rank, users } = response.data
+            vm.loaded = true
+            const { schools, users } = response.data
+            // console.log(response.data)
             vm.schools = schools
-            vm.rank = rank
-            vm.images = users.filter(user => (user.url))
+            vm.users = users
+            // vm.images = users.filter(user => (user.url))
         }).catch((e) => {
             console.log(e)
         })
@@ -286,8 +379,13 @@ export default {
                 alert('請輸入座號')
                 return
             }
-            if (this.name === null || this.name === '') {
+            if (name === null || name === '') {
                 alert('請輸入姓名')
+                return
+            }
+            const reg = new RegExp('[A-Za-z0-9$&+,:;=?@#|"~<>.^*%!-{}]')
+            if (reg.test(name) === true) {
+                alert('請輸入正確的中文姓名，中獎時才能將獎品送到你的手上哦')
                 return
             }
             if (verification_code !== verification) {

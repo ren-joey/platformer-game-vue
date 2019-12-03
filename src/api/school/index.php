@@ -24,13 +24,13 @@ while ($row = $result->fetch_assoc()) {
 }
 $response->schools = $rows;
 
-$sql = "SELECT * FROM result ORDER BY score DESC LIMIT 100";
-$result = $conn->query($sql);
-$rank = array();
-while ($user = $result->fetch_assoc()) {
-    array_push($rank, $user);
-}
-$response->rank = $rank;
+// $sql = "SELECT * FROM result ORDER BY score DESC";
+// $result = $conn->query($sql);
+// $rank = array();
+// while ($user = $result->fetch_assoc()) {
+//     array_push($rank, $user);
+// }
+// $response->rank = $rank;
 
 $sql = "SELECT * FROM result";
 $result = $conn->query($sql);

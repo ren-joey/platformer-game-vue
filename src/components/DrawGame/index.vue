@@ -73,16 +73,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(user, idx) in rank" :key="user.school_id + user.class + user.seat_number">
-                            <td v-html="idx + 1" />
+                        <tr v-for="(user, idx) in rank" :key="idx">
+                            <td v-html="+rankStart + idx + 1" />
                             <td v-html="user.school_name" />
                             <td v-html="user.class" />
                             <td v-html="user.seat_number" />
-                            <td v-html="user.name" />
+                            <td v-html="nameMask(user.name)" />
                             <td v-html="user.score" />
                         </tr>
                     </tbody>
                 </table>
+                <br />
+                <div class="text-center" v-if="users.length > 0">
+                    <nav aria-label="Page navigation example" style="display: inline-block;">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" @click="rankStart -= 100">上一頁</a>
+                            </li>
+                            <li class="page-item"
+                                v-for="(page, idx) in pages"
+                                v-show="page > rankStart - 500 && page < rankStart + 500"
+                                :class="{active: page === rankStart}"
+                                :key="idx"
+                            >
+                                <a class="page-link" @click="rankStart = page">{{ idx + 1 }}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" @click="rankStart += 100">下一頁</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
                 <div class="btn-wrap">
                     <div class="btn" @click="activeContent = 'result'">
                         關閉
@@ -134,7 +155,7 @@ export default {
             type: Object,
             default: () => {}
         },
-        rank: {
+        users: {
             type: Array,
             default: () => []
         },
@@ -149,7 +170,21 @@ export default {
     },
     data() {
         return {
-            activeContent: 'question'
+            activeContent: 'question',
+            rankStart: 0
+        }
+    },
+    computed: {
+        rank() {
+            return this.users.concat().sort((a, b) => b.score - a.score).slice(this.rankStart, this.rankStart + 100)
+        },
+        pages() {
+            if (this.users.length === 0) return []
+            const pages = []
+            for (let i = 0; i <= this.users.length; i += 100) {
+                pages.push(i)
+            }
+            return pages
         }
     },
     watch: {
@@ -162,6 +197,11 @@ export default {
         }
     },
     methods: {
+        nameMask(name) {
+            const nameMask = name.split('')
+            nameMask[1] = '◯'
+            return nameMask.join('')
+        },
         updateUrlByMethod() {
             const canvas = this.$refs.drawCanvas
             const img = canvas.toDataURL('image/png')
